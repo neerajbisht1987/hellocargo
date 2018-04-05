@@ -11,7 +11,10 @@ fn main() {
 	println!("put a value");
 	io::stdin().read_line(&mut val).expect("fail to read line");	
     println!("added value {}",val);
-	let val: u32 = val.trim().parse() .expect("Please type a number!");
+	let val: u32 = match val.trim().parse() {
+			Ok(num) => num,
+Err(_) => continue,
+			};
 
 	match val.cmp(&rndnum){
 	Ordering::Less => println!("Too small!"),
