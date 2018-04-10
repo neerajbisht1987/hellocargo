@@ -3,6 +3,41 @@ use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
 
+
+
+
+fn main() {
+	takes_ownership_test();
+	borrow_read_ownership_test();
+	borrow_write_ownership_test();
+	
+	
+}
+
+fn borrow_write_ownership_test()
+{
+	let  mut borrow_write_example = String::from("-->borrowing write example");
+	borrow_write_ownership(& mut borrow_write_example);
+	println!("After Funtion Call: {}",borrow_write_example);
+
+}
+
+fn borrow_read_ownership_test()
+{
+	let borrow_read_example = String::from("-->borrowing read example");
+	borrow_read_ownership(&borrow_read_example);	
+	println!("After Funtion Call: {}",borrow_read_example);
+}
+
+fn takes_ownership_test()
+{
+	let take_ownership_example=String::from("-->ownership example");
+	takes_ownership(take_ownership_example);	
+	//comiple time error "value used here after move"
+	//println!("{}",take_ownership_example);
+}
+
+
 fn takes_ownership(take_ownership_string :String)
 {
 	println!("Owner transfer string :{}",take_ownership_string);
@@ -11,10 +46,9 @@ fn takes_ownership(take_ownership_string :String)
 
 fn borrow_read_ownership(borrowed_read_string:&String)
 {
-	println!("Borrowed read String :{}",borrowed_read_string);	
+	println!("Borrowed read String :{}",borrowed_read_string);
 	//error:cannot borrow as mutable
-	//borrowed_read_string.push_str(" new addition");
-	
+	//borrowed_read_string.push_str(" new addition");	
 }
 
 fn borrow_write_ownership(borrow_write_string:&mut String)
@@ -25,27 +59,13 @@ fn borrow_write_ownership(borrow_write_string:&mut String)
 		
 }
 
-fn main() {
-	let take_ownership_example=String::from("-->ownership example");
-	takes_ownership(take_ownership_example);
-	
-	//comiple time error "value used here after move"
-	//println!("{}",take_ownership_example);
-	
-	
-	let borrow_read_example = String::from("borrowing read example");
-	borrow_read_ownership(&borrow_read_example);	
-	println!("After Funtion Call: {}",borrow_read_example);
-	
-	let  mut borrow_write_example = String::from("borrowing write example");
-	borrow_write_ownership(& mut borrow_write_example);
-	println!("After Funtion Call: {}",borrow_write_example);
-	
-	
-	
 
-	let rndnum=rand::thread_rng().gen_range(1,101);
+
+fn guess_game(){
+	
+		let rndnum=rand::thread_rng().gen_range(1,101);
 	println!("secret num:{}",rndnum);
+
 	loop {	
 	let mut val =String::new();
 	println!("put a value");
@@ -66,4 +86,5 @@ println!("You win!");
 	}
 	
 }
+
 }
