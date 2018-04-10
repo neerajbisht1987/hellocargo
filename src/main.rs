@@ -7,6 +7,8 @@ use std::cmp::Ordering;
 
 
 fn main() {
+
+	string_slice_test()
 	//takes_ownership_test();
 	//borrow_read_ownership_test();
 	//borrow_write_ownership_test();
@@ -15,6 +17,25 @@ fn main() {
 }
 
 
+
+fn string_slice_test()
+{
+	let  s=String::from("Hello world");
+	let hello =&s[..5];
+	let world = &s[6..];
+	println!("orig len:{0},hello len:{1}, world len:{2}",s.len(),hello.len(),world.len());
+	//s.clear(); error: cannot borrow mutably
+	
+	let sl="hello world";
+	let hl =&sl[..5];
+	let wl = &sl[6..];
+	println!("orig len:{0},hello len:{1}, world len:{2}",sl.len(),hl.len(),wl.len());
+	
+	println!("firstword test with string:{}",first_word_slice(&s));
+	println!("firstword test with string:{}",first_word_slice(&s[..]));
+	println!("firstword test with string literal:{}",first_word_slice(&sl));
+	println!("firstword test with string literal:{}",first_word_slice(&sl[..]));
+}
 
 #[allow(dead_code)]
 fn borrow_write_ownership_test()
@@ -41,6 +62,12 @@ fn takes_ownership_test()
 	//comiple time error "value used here after move"
 	//println!("{}",take_ownership_example);
 }
+ 
+ //This is acceping String literal as &str, we can define to use string by using &string.
+ fn first_word_slice(s:&str) ->&str
+ {
+	&s[..] 
+ }
 
 #[allow(dead_code)]
 fn takes_ownership(take_ownership_string :String)
