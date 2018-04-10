@@ -7,13 +7,16 @@ use std::cmp::Ordering;
 
 
 fn main() {
-	takes_ownership_test();
-	borrow_read_ownership_test();
-	borrow_write_ownership_test();
+	//takes_ownership_test();
+	//borrow_read_ownership_test();
+	//borrow_write_ownership_test();
 	
 	
 }
 
+
+
+#[allow(dead_code)]
 fn borrow_write_ownership_test()
 {
 	let  mut borrow_write_example = String::from("-->borrowing write example");
@@ -22,6 +25,7 @@ fn borrow_write_ownership_test()
 
 }
 
+#[allow(dead_code)]
 fn borrow_read_ownership_test()
 {
 	let borrow_read_example = String::from("-->borrowing read example");
@@ -29,6 +33,7 @@ fn borrow_read_ownership_test()
 	println!("After Funtion Call: {}",borrow_read_example);
 }
 
+#[allow(dead_code)]
 fn takes_ownership_test()
 {
 	let take_ownership_example=String::from("-->ownership example");
@@ -37,13 +42,13 @@ fn takes_ownership_test()
 	//println!("{}",take_ownership_example);
 }
 
-
+#[allow(dead_code)]
 fn takes_ownership(take_ownership_string :String)
 {
 	println!("Owner transfer string :{}",take_ownership_string);
 }
 
-
+#[allow(dead_code)]
 fn borrow_read_ownership(borrowed_read_string:&String)
 {
 	println!("Borrowed read String :{}",borrowed_read_string);
@@ -51,6 +56,7 @@ fn borrow_read_ownership(borrowed_read_string:&String)
 	//borrowed_read_string.push_str(" new addition");	
 }
 
+#[allow(dead_code)]
 fn borrow_write_ownership(borrow_write_string:&mut String)
 {
 	println!("Borrowed write  String :{}",borrow_write_string);	
@@ -60,7 +66,7 @@ fn borrow_write_ownership(borrow_write_string:&mut String)
 }
 
 
-
+#[allow(dead_code)]
 fn guess_game(){
 	
 		let rndnum=rand::thread_rng().gen_range(1,101);
