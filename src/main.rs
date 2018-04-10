@@ -6,9 +6,11 @@ use std::cmp::Ordering;
 
 
 
-fn main() {
 
-	string_slice_test()
+
+fn main() {		
+	test_classes();
+	//string_slice_test()
 	//takes_ownership_test();
 	//borrow_read_ownership_test();
 	//borrow_write_ownership_test();
@@ -17,7 +19,49 @@ fn main() {
 }
 
 
+fn test_classes()
+{
+	//rec is printing value because of #[derive(Debug)] define in struct class
+	let rec= create_rectangle(10,15);
+	println!("Area of the Rectangle:{:?} is {}",rec,rec.area());
+	
+	//rec_static is printing value because of #[derive(Debug)] define in struct class
+	let rec_static = Rectangle::instance(12,13);
+	println!("Area of the Rectangle:{:?} is {}",rec_static,rec_static.area());
+	
+}
+//1.This is creating an instance
+//2. As this is statement this is returning a Rectange Instance
+//3. we dont need to define length=length rust can take care about it.
+fn create_rectangle(length:u32,breath:u32)->Rectangle
+{
+ Rectangle{
+ length,
+ breath
+ } 
+}
 
+#[derive(Debug)]
+struct Rectangle {
+ length:u32,
+ breath:u32,
+ }
+ 
+ impl Rectangle
+ {
+	//it is like a static member
+	fn instance(length:u32,breath:u32)->Rectangle{
+		Rectangle{length,breath}
+	}
+	fn area(&self) ->u32{
+		self.length*self.breath
+	}
+  
+ }
+ 
+ 
+
+#[allow(dead_code)]
 fn string_slice_test()
 {
 	let  s=String::from("Hello world");
@@ -62,7 +106,8 @@ fn takes_ownership_test()
 	//comiple time error "value used here after move"
 	//println!("{}",take_ownership_example);
 }
- 
+
+#[allow(dead_code)] 
  //This is acceping String literal as &str, we can define to use string by using &string.
  fn first_word_slice(s:&str) ->&str
  {
