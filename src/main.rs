@@ -9,7 +9,8 @@ use std::cmp::Ordering;
 
 
 fn main() {		
-	test_classes();
+    vector_testing();
+	//test_classes();
 	//string_slice_test()
 	//takes_ownership_test();
 	//borrow_read_ownership_test();
@@ -18,7 +19,45 @@ fn main() {
 	
 }
 
+fn vector_testing()
+{
+    let mut v :Vec<i32>=Vec::new();
+    v.push(1);
+    v.push(2);
+    v.push(3);
+    for i in &v{
+    println!("vector value:{}",i);
+    }
+    printvector(&v);
+    printchangevalue(& mut v,5);
 
+    let mut  _vmacro =vec![100,200,300];
+    printvector(&_vmacro);
+    printchangevalue(& mut _vmacro,5);
+
+}
+
+fn printvector(v:&Vec<i32>){
+    for i in v.iter(){
+    println!("vector value:{}",i);
+    }
+}
+
+fn printchangevalue(v:&mut Vec<i32>,inc:i32)
+{
+    for i in  v.iter_mut(){
+        *i+=inc;
+        println!("vector change value:{}",*i);
+    }
+}
+/*
+ *
+ * classes testing
+ * 
+ *
+ */
+
+#[allow(dead_code)]
 fn test_classes()
 {
 	//rec is printing value because of #[derive(Debug)] define in struct class
