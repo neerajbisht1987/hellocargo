@@ -2,14 +2,15 @@ extern crate rand;
 use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
+use std::collections::HashMap;
 
 
 
 
 
-
-fn main() {		
-    string_testing()
+fn main() {	
+    hashmap_testing();
+    //string_testing()
     //vector_testing();
 	//test_classes();
 	//string_slice_test()
@@ -20,7 +21,42 @@ fn main() {
 	
 }
 
+fn hashmap_testing()
+{
+        let field_name = String::from("Favorite color");
+let field_value = String::from("Blue");
+let mut map = HashMap::new();
+map.insert(field_name, field_value);
+    println!("{:?}", map);
+    //this will give an error as we didnt insert in by the reference
+    //println!("{}",field_value);
 
+    let mut hash = HashMap::new();
+    //inserting a value into hash
+    hash.insert(String::from("Blue"), 10);
+    //inserting a value if the value doesnt exist
+    hash.entry(String::from("Blue")).or_insert(50);
+    hash.entry(String::from("Yellow")).or_insert(50);
+
+    println!("{:?}", hash);
+
+
+    let text = "hello world wonderful world"; 
+    let mut map = HashMap::new();
+    for word in text.split_whitespace() {
+    let count = map.entry(word).or_insert(0); *count += 1;
+    }
+    println!("{:?}", map);
+
+
+    //creating hash map from 2 vector
+    let teams = vec![String::from("Blue"), String::from("Yellow")];
+let initial_scores = vec![10, 50];
+let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
+    println!("{:?}", scores);
+}
+
+#[allow(dead_code)]
 fn string_testing()
 {
     //string a new string
