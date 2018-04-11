@@ -9,7 +9,8 @@ use std::cmp::Ordering;
 
 
 fn main() {		
-    vector_testing();
+    string_testing()
+    //vector_testing();
 	//test_classes();
 	//string_slice_test()
 	//takes_ownership_test();
@@ -19,6 +20,43 @@ fn main() {
 	
 }
 
+
+fn string_testing()
+{
+    //string a new string
+    let mut s =String::new();
+    //convert string literal to String
+    let s ="string litral to String".to_string();
+    //another method to convert string literal to string
+    let s=String::from("string literal to string");
+
+    //experiment 
+    let mut s1 = String::from("foo"); 
+    let s2 = "bar";
+    s1.push_str(&s2);
+    println!("s1 is {},s2 is {}",s1, s2);
+
+    let s1 = String::from("Hello, ");
+    let s2 = String::from("world!");
+    let s3 = s1 + &s2;
+
+    //in case of + ->fn add(self, s: &str) -> String  is called and as you see
+    //1. it is calling self thats why  s1 lose its ownership and cant be used.
+    //2. in case of s2 ,compiler can coerce the &String argument into a &str .
+    //println!("s1 is {},s2 is {} s3 is {}",s1, s2, s3);
+    println!("s2 is {} s3 is {}", s2, s3);
+
+
+    //we can also use format!
+    //and doesnt take ownership
+    let s1 = String::from("tic");
+    let s2 = String::from("tac"); 
+    let s3 = String::from("toe");
+    let s = format!("{}-{}-{}", s1, s2, s3);
+    println!("s is {} s1 is {},s2 is {} s3 is {}",s,s1, s2, s3);
+}
+
+#[allow(dead_code)]
 fn vector_testing()
 {
     let mut v :Vec<i32>=Vec::new();
@@ -37,12 +75,14 @@ fn vector_testing()
 
 }
 
+#[allow(dead_code)]
 fn printvector(v:&Vec<i32>){
     for i in v.iter(){
     println!("vector value:{}",i);
     }
 }
 
+#[allow(dead_code)]
 fn printchangevalue(v:&mut Vec<i32>,inc:i32)
 {
     for i in  v.iter_mut(){
