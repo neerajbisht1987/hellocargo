@@ -9,7 +9,8 @@ use std::collections::HashMap;
 
 
 fn main() {	
-	trait_bound_testing();
+	trait_bound_with_vec_testing();
+	//trait_bound_testing();
 	//trait_testing();
 	//generic_testing();
     //hashmap_testing();
@@ -24,14 +25,43 @@ fn main() {
 	
 }
 
+/*
+*
+*	Second Implementing  Traits Bound
+*	We can bound a trait to Generiv Types
+*/
+
+
+
+fn trait_bound_with_vec_testing() {
+    let number_list = vec![34, 50, 25, 100, 65];
+
+    let result = largest(&number_list);
+    println!("The largest number is {}", result);
+
+    let char_list = vec!['y', 'm', 'a', 'q'];
+
+    let result = largest(&char_list);
+    println!("The largest char is {}", result);
+}
+
+fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
+    let mut largest = list[0];
+
+    for &item in list.iter() {
+        if item > largest {
+            largest = item;
+        }
+    }
+
+    largest
+}
 
 /*
 *
 *	Implementing  Traits Bound
 *	We can bound a trait to Generiv Types
 */
-
-
 fn trait_bound_testing() {
 	let news_article = NewsArticle{
 	headline: String::from("this is News Aritcle Headline"),
