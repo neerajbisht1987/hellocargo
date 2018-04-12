@@ -9,7 +9,8 @@ use std::collections::HashMap;
 
 
 fn main() {	
-	trait_testing();
+	trait_bound_testing();
+	//trait_testing();
 	//generic_testing();
     //hashmap_testing();
     //string_testing()
@@ -22,11 +23,53 @@ fn main() {
 	
 	
 }
+
+
+/*
+*
+*	Implementing  Traits Bound
+*	We can bound a trait to Generiv Types
+*/
+
+
+fn trait_bound_testing() {
+	let news_article = NewsArticle{
+	headline: String::from("this is News Aritcle Headline"),
+	location: String::from("this is News Aritcle location"),
+	author: String::from("this is News Aritcle author"),
+	content: String::from("this is News Aritcle content"),
+	};	
+	
+	let news_article_nosummarization = NewsArticleNoSummarization{
+										headline: String::from("this is News Aritcle Headline"),
+										};
+
+	trait_bound_inside(&news_article);
+	trait_bound_outside(&news_article);
+	
+	let news_article_nosummarization = NewsArticleNoSummarization{
+										headline: String::from("this is News Aritcle Headline"),
+										};
+	//this will give an error as no summarization is bound to struct news_article_nosummarization								
+	//trait_bound_inside(news_article_nosummarization);
+
+}
+pub fn trait_bound_inside<T:Summarizable>(item:&T){
+	println!("trait bound inside implementation {}",item.summary());
+}
+
+pub fn trait_bound_outside<T>(item:&T)
+		where T:Summarizable,
+{
+println!("trait bound outside implementation {}",item.summary());
+}
+
 /*
 *
 *	Implementing  Traits
 *
 */
+#[allow(dead_code)]
 fn trait_testing(){
 	let news_article = NewsArticle{
 	headline: String::from("this is News Aritcle Headline"),
@@ -54,6 +97,12 @@ pub trait Summarizable {
 		String::from(" Generic summary.....")
 	}
 }
+
+pub struct NewsArticleNoSummarization
+{
+    pub headline: String,
+ }
+ 
 
 pub struct NewsArticle
 {
