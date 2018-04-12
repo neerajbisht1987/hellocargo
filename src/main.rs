@@ -9,7 +9,8 @@ use std::collections::HashMap;
 
 
 fn main() {	
-	generic_testing()
+	trait_testing();
+	//generic_testing();
     //hashmap_testing();
     //string_testing()
     //vector_testing();
@@ -21,7 +22,76 @@ fn main() {
 	
 	
 }
+/*
+*
+*	Implementing  Traits
+*
+*/
+fn trait_testing(){
+	let news_article = NewsArticle{
+	headline: String::from("this is News Aritcle Headline"),
+	location: String::from("this is News Aritcle location"),
+	author: String::from("this is News Aritcle author"),
+	content: String::from("this is News Aritcle content"),
+	};
+	
+	println!("NewsAticle author_summary:{}, summary:{}",news_article.author_summary(),news_article.summary());
+	
+	let tweet = Tweet {
+    username: String::from("horse_ebooks"),
+    content: String::from("of course, as you probably already know, people"),
+    reply: false,
+    retweet: false,
+	};
+	
+	println!("tweet author_summary:{}, summary:{}",tweet.author_summary(),tweet.summary());
+}
 
+
+pub trait Summarizable {
+	fn author_summary(&self)->String;
+	fn summary(&self)->String {
+		String::from(" Generic summary.....")
+	}
+}
+
+pub struct NewsArticle
+{
+    pub headline: String,
+    pub location: String,
+    pub author: String,
+    pub content: String,
+}
+
+impl Summarizable for NewsArticle {
+	fn author_summary(&self)->String {
+		format!(" NewsArticle author summary is : {}, by {} ({})", self.headline, self.author, self.location)	
+	}
+	
+	fn summary(&self)->String {
+		format!("News article summary summary is : {}, by {} ({})", self.headline, self.author, self.location)	
+	}
+	
+}
+
+pub struct Tweet {
+    pub username: String,
+    pub content: String,
+    pub reply: bool,
+    pub retweet: bool,
+}
+
+impl Summarizable for Tweet {
+	fn author_summary(&self)->String {
+	 format!(" Tweet author summary {}: {}", self.username, self.content)
+	}
+}
+
+/*
+*
+*	Generic Programming
+*
+*/
 struct Point<T, U> {
     x: T,
     y: U,
@@ -34,6 +104,8 @@ impl<T, U> Point<T, U> {
         }
     }
 }
+
+#[allow(dead_code)]
 fn generic_testing() {
     let p1 = Point { x: 5, y: 10.4 };
     let p2 = Point { x: "Hello", y: 'c'};
@@ -41,16 +113,22 @@ fn generic_testing() {
     println!("p3.x = {}, p3.y = {}", p3.x, p3.y);
 }
 
+
+/*
+*
+*	Hash Map
+*
+*/
 #[allow(dead_code)]
 fn hashmap_testing()
 {
-        let field_name = String::from("Favorite color");
-let field_value = String::from("Blue");
-let mut map = HashMap::new();
-map.insert(field_name, field_value);
-    println!("{:?}", map);
-    //this will give an error as we didnt insert in by the reference
-    //println!("{}",field_value);
+    let field_name = String::from("Favorite color");
+	let field_value = String::from("Blue");
+	let mut map = HashMap::new();
+	map.insert(field_name, field_value);
+	println!("{:?}", map);
+	//this will give an error as we didnt insert in by the reference
+	//println!("{}",field_value);
 
     let mut hash = HashMap::new();
     //inserting a value into hash
