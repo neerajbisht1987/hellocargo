@@ -9,7 +9,8 @@ use std::collections::HashMap;
 
 
 fn main() {	
-    hashmap_testing();
+	generic_testing()
+    //hashmap_testing();
     //string_testing()
     //vector_testing();
 	//test_classes();
@@ -21,6 +22,26 @@ fn main() {
 	
 }
 
+struct Point<T, U> {
+    x: T,
+    y: U,
+}
+impl<T, U> Point<T, U> {
+    fn mixup<V, W>(self, other: Point<V, W>) -> Point<T, W> {
+        Point {
+            x: self.x,
+            y: other.y,
+        }
+    }
+}
+fn generic_testing() {
+    let p1 = Point { x: 5, y: 10.4 };
+    let p2 = Point { x: "Hello", y: 'c'};
+    let p3 = p1.mixup(p2);
+    println!("p3.x = {}, p3.y = {}", p3.x, p3.y);
+}
+
+#[allow(dead_code)]
 fn hashmap_testing()
 {
         let field_name = String::from("Favorite color");
@@ -60,11 +81,11 @@ let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
 fn string_testing()
 {
     //string a new string
-    let mut s =String::new();
+    let mut _s =String::new();
     //convert string literal to String
-    let s ="string litral to String".to_string();
+    let _s ="string litral to String".to_string();
     //another method to convert string literal to string
-    let s=String::from("string literal to string");
+    let _s=String::from("string literal to string");
 
     //experiment 
     let mut s1 = String::from("foo"); 
