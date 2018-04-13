@@ -9,7 +9,9 @@ use std::collections::HashMap;
 
 
 fn main() {	
-	trait_bound_with_vec_testing();
+	static_lifetime_testing();
+	//lifetime_ann_fn_testing()
+	//trait_bound_with_vec_testing();
 	//trait_bound_testing();
 	//trait_testing();
 	//generic_testing();
@@ -21,17 +23,88 @@ fn main() {
 	//takes_ownership_test();
 	//borrow_read_ownership_test();
 	//borrow_write_ownership_test();
-	
+}
+//static life time 
+
+fn static_lifetime_testing()
+{
+	let result;
+	{
+		let s:&'static str="this has static lifetime";
+		result =returnsamevalue(&s);	
+	}
+	println!("The longest string is {}", result);
 	
 }
+
+fn returnsamevalue(s:&str) ->&str{
+	s
+}
+
+
+/*
+//lifetime annotation rule
+1. Each parameter that is a reference gets its own lifetime parameter. In other words, 
+a function with one parameter gets one lifetime parameter: fn foo<'a>(x: &'a i32), a 
+function with two arguments gets two separate lifetime parameters: 
+fn foo<'a, 'b>(x: &'a i32, y: &'b i32), and so on.
+
+2. If there is exactly one input lifetime parameter, that lifetime is assigned to all 
+output lifetime parameters: fn foo<'a>(x: &'a i32) -> &'a i32.
+
+3. If there are multiple input lifetime parameters, but one of them is &self or &mut self 
+because this is a method, then the lifetime of self is assigned to all output lifetime 
+parameters. This makes writing methods much nicer.
+
+*/
+/*
+*Lifetime Annotations in Function Signatures
+*/
+
+
+fn lifetime_ann_fn_testing()
+{
+	//This will pass
+	let string1 = String::from("long string is long");
+    {
+        let string2 = String::from("xyz");
+        let result = longest(string1.as_str(), string2.as_str());
+        println!("The longest string is {}", result);
+    }	
+	
+	//this will give compile time error: borrowed value does not live long enough
+	/*
+	let string1 = String::from("long string is long");
+	let result;
+    {
+        let string2 = String::from("xyz");
+        result = longest(string1.as_str(), string2.as_str());        
+    }
+	println!("The longest string is {}", result);
+	*/
+	
+
+}
+
+
+//fn longest(x:& str,y:& str) -> & str -->will not work as rust compiler dont know
+// about the life time of the variable so it will give compile time error.
+fn longest<'a>(x:&'a str,y:&'a str) -> &'a str
+{
+	if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+
+}
+
 
 /*
 *
 *	Second Implementing  Traits Bound
 *	We can bound a trait to Generiv Types
 */
-
-
 
 fn trait_bound_with_vec_testing() {
     let number_list = vec![34, 50, 25, 100, 65];
