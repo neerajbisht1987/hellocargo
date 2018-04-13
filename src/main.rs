@@ -32,6 +32,11 @@ fn static_lifetime_testing()
 	{
 		let s:&'static str="this has static lifetime";
 		result =returnsamevalue(&s);	
+		//let s="this has static lifetime";
+		//let s="this has static lifetime";
+		//result =returnsamevalue(&s);	
+		//let string1:&'static String = String::from("long string is long");
+		//result =returnsamevalue(string1.as_str());	
 	}
 	println!("The longest string is {}", result);
 	
