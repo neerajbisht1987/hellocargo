@@ -1,15 +1,19 @@
+extern crate hello_cargo;
 extern crate rand;
+
 use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
 use std::collections::HashMap;
+use hello_cargo::MyBox;
 
 
 
 
 
 fn main() {	
-	static_lifetime_testing();
+	smarpointer_derefernce_testing()
+	//static_lifetime_testing();
 	//lifetime_ann_fn_testing()
 	//trait_bound_with_vec_testing();
 	//trait_bound_testing();
@@ -26,6 +30,20 @@ fn main() {
 }
 //static life time 
 
+
+fn smarpointer_derefernce_testing()
+{
+	
+	let x=5;
+	let y=&x;	
+	
+	assert_eq!(5,x);	
+	assert_eq!(5,*y);
+	
+	let y=MyBox::new(x);
+	assert_eq!(5,*y);
+	
+}
 fn static_lifetime_testing()
 {
 	let result;
