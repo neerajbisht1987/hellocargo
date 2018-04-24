@@ -7,12 +7,13 @@ use std::cmp::Ordering;
 use std::collections::HashMap;
 use hello_cargo::MyBox;
 
-
-
+use std::rc::Rc;
 
 
 fn main() {	
-	smarpointer_derefernce_testing()
+	
+	reference_Count_Testing()
+	//smarpointer_derefernce_testing()
 	//static_lifetime_testing();
 	//lifetime_ann_fn_testing()
 	//trait_bound_with_vec_testing();
@@ -28,8 +29,38 @@ fn main() {
 	//borrow_read_ownership_test();
 	//borrow_write_ownership_test();
 }
-//static life time 
 
+
+
+
+
+struct refCount<T>
+{	
+	val : T,
+}
+
+fn reference_Count_Testing()
+{
+	//let rcI =refCount{val:32};
+	//println!("count after creating c = {}", rcI.val);
+	
+	let rcI =refCount{val:String::from("this is a new string")};
+	println!("count after creating c = {}", rcI.val);
+	
+	
+	let rc=Rc::new(refCount{val:32});
+	println!("count after creating c = {}", Rc::strong_count(&rc));
+	
+	let b=rc.clone();
+	println!("count after creating c = {}", Rc::strong_count(&rc));
+	{
+	let c=rc.clone();
+	println!("count after creating c = {}", Rc::strong_count(&c));
+	
+	}
+	println!("count after creating c = {}", Rc::strong_count(&rc));
+	
+}
 
 fn smarpointer_derefernce_testing()
 {
