@@ -8,11 +8,11 @@ use std::collections::HashMap;
 use hello_cargo::MyBox;
 
 use std::rc::Rc;
-
+use std::cell::RefCell;
 
 fn main() {	
-	
-	reference_Count_Testing()
+	Rfcell_testing()
+	//reference_Count_Testing()
 	//smarpointer_derefernce_testing()
 	//static_lifetime_testing();
 	//lifetime_ann_fn_testing()
@@ -32,6 +32,34 @@ fn main() {
 
 
 
+
+
+use List::{Cons, Nil};
+
+#[derive(Debug)]
+enum List {
+    Cons(Rc<RefCell<i32>>, Rc<List>),
+    Nil,
+}
+
+fn Rfcell_testing() {
+    let value = Rc::new(RefCell::new(5));
+
+    let a = Rc::new(Cons(Rc::clone(&value), Rc::new(Nil)));
+
+    let b = Cons(Rc::new(RefCell::new(6)), Rc::clone(&a));
+    let c = Cons(Rc::new(RefCell::new(10)), Rc::clone(&a));
+
+	println!("a after = {:?}", a);
+    println!("b after = {:?}", b);
+    println!("c after = {:?}", c); 
+	
+    *value.borrow_mut() += 10;
+
+    println!("a after = {:?}", a);
+    println!("b after = {:?}", b);
+    println!("c after = {:?}", c);
+}
 
 
 struct refCount<T>
