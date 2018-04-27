@@ -1,17 +1,19 @@
-extern crate hello_cargo;
 extern crate rand;
 
 use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
 use std::collections::HashMap;
-use hello_cargo::MyBox;
+mod module1;
+use module1::MyBox;
 
 use std::rc::Rc;
 use std::cell::RefCell;
 
+
 fn main() {	
-	Rfcell_testing()
+	module_testing();
+	Rfcell_testing();
 	//reference_Count_Testing()
 	//smarpointer_derefernce_testing()
 	//static_lifetime_testing();
@@ -28,6 +30,11 @@ fn main() {
 	//takes_ownership_test();
 	//borrow_read_ownership_test();
 	//borrow_write_ownership_test();
+}
+
+fn module_testing() {
+	let mystruct = module1::MyStruct{i:2};
+
 }
 
 

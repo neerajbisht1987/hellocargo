@@ -23,3 +23,7 @@ impl<T> Drop for MyBox<T> {
 		println!("Drop train is being called for MyBox<T> ");
 	}
 }
+
+pub struct MyStruct {
+	pub i:u32,
+}
