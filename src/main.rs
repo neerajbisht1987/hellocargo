@@ -12,11 +12,13 @@ use std::cell::RefCell;
 
 
 fn main() {	
-	module_testing();
-	Rfcell_testing();
+	match_testing();
+	//module_testing();
+	//Rfcell_testing();
 	//reference_Count_Testing()
 	//smarpointer_derefernce_testing()
 	//static_lifetime_testing();
+
 	//lifetime_ann_fn_testing()
 	//trait_bound_with_vec_testing();
 	//trait_bound_testing();
@@ -32,9 +34,36 @@ fn main() {
 	//borrow_write_ownership_test();
 }
 
-fn module_testing() {
-	let mystruct = module1::MyStruct{i:2};
+ use item_list::{pair};
+enum item_list {
+	pair{x:u32,y:Box<item_list>},
+Nil
+}
 
+fn match_testing() {
+	//let list=(cons 1 (cons 2 (cons 3 nil)));
+	//let itemlist = pair(1,pair(2,pair(3,pair(4,Nil))));
+	//let itemlist = pair(1,Box<item_list>(Nil));
+	let itemlist = pair{x:1,y:Box::new(pair{x:2,y:Box::new(pair{x:3,y:Box::new(item_list::Nil)})})};
+	findvalue(itemlist,2);
+	//findvalue(item_list::Nil,12);
+	
+}
+
+fn findvalue(list:item_list,val:u32)
+{
+	
+	match list {
+		pair{x: v, y:_} if v == val => println!("find the matched value:"),
+		pair{x:_,y:x} => { println!("movingto next iteration");findvalue(*x,val)},
+				item_list::Nil=>println!("cant able to find the matched value"),
+	}
+}
+
+
+
+fn module_testing() {
+	let mystruct = module1::MyStruct{i:2};	
 }
 
 
@@ -129,8 +158,6 @@ fn static_lifetime_testing()
 fn returnsamevalue(s:&str) ->&str{
 	s
 }
-
-
 /*
 //lifetime annotation rule
 1. Each parameter that is a reference gets its own lifetime parameter. In other words, 
