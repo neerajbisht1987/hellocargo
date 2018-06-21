@@ -9,10 +9,13 @@ use module1::MyBox;
 
 use std::rc::Rc;
 use std::cell::RefCell;
+mod LinkList;
 
 
-fn main() {	
-	match_testing();
+fn main() {
+	LinkList_testing()
+	//ref_testing();	
+	//match_testing();
 	//module_testing();
 	//Rfcell_testing();
 	//reference_Count_Testing()
@@ -32,6 +35,62 @@ fn main() {
 	//takes_ownership_test();
 	//borrow_read_ownership_test();
 	//borrow_write_ownership_test();
+}
+
+fn LinkList_testing()
+{
+	//let list : Box<LinkList::LinkedList> = Box::new(LinkList::LinkedList{});
+	let mut list =  LinkList::LinkedList{head:None};
+	loop
+	{
+		println!("Press 1: to add the element in linklist \n
+				  Press 2: to print the linked list \n
+				  Press 3: done");
+		
+		let mut optchoosen = String::new();
+        io::stdin().read_line(&mut optchoosen).expect("reading from stdin failed");
+		match optchoosen.as_ref()
+		{
+			"1" =>{
+				let mut name=String::new();
+				let mut age=String::new();
+				println!("Enter name");
+				io::stdin().read_line(&mut name).expect("reading from stdin failed");
+				println!("Enter age");				
+				io::stdin().read_line(&mut age).expect("reading from stdin failed");
+				let info = LinkList::information{name:name,age:age.parse::<i32>().expect("expected age as int")};
+				list.add(info);
+				
+
+			},
+			"2" =>
+			{
+
+			},
+			"3" => break,
+			_ => {
+				println!{"Wrong option selection please select again"};
+			}
+		}
+		
+	}
+}
+
+
+
+fn ref_testing()
+{
+	 let x = 123;
+    let &x_ref_1 = &x;
+    let ref x_ref_2 = &x;
+    //let & x_ref_3 = x; // same error as when matching &x
+	let x_ref_3 = &x;
+    let ref x_ref_4 = x;
+	println!("print value:{}",x);
+	println!("print value:{}",x_ref_1);
+	println!("print value:{}",*x_ref_2);
+	println!("print value:{}",*x_ref_3);
+	println!("print value:{}",*x_ref_4);
 }
 
  use item_list::{pair};
