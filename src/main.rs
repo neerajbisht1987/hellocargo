@@ -49,27 +49,28 @@ fn LinkList_testing()
 		
 		let mut optchoosen = String::new();
         io::stdin().read_line(&mut optchoosen).expect("reading from stdin failed");
-		match optchoosen.as_ref()
+		match optchoosen.trim().as_ref()
 		{
-			"1" =>{
+			"1"=>{
 				let mut name=String::new();
 				let mut age=String::new();
 				println!("Enter name");
 				io::stdin().read_line(&mut name).expect("reading from stdin failed");
 				println!("Enter age");				
 				io::stdin().read_line(&mut age).expect("reading from stdin failed");
-				let info = LinkList::information{name:name,age:age.parse::<i32>().expect("expected age as int")};
+				let info = LinkList::Information{name:name.trim().to_string(),age:age.trim().parse::<i32>().expect("expected age as int")};
 				list.add(info);
 				
 
 			},
 			"2" =>
 			{
+				list.traverse();
 
 			},
 			"3" => break,
 			_ => {
-				println!{"Wrong option selection please select again"};
+				println!{" Wrong option selection please select again"};
 			}
 		}
 		
